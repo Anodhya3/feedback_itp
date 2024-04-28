@@ -26,7 +26,16 @@ router.get('/feedbacksWithReply', async (req, res) => {
   }
 });
 
-  
+
+router.get('/getFeedback/:id', async (req, res) => {
+  const id = req.params.id;
+
+  const feedback =await Feedback.findById(id)
+
+  res.status(200).json(feedback)
+
+})
+
   router.post('/add', async (req, res) => {
     const { name, email, contactNumber, question, rating } = req.body;
     const newFeedback = new Feedback({
@@ -42,8 +51,17 @@ router.get('/feedbacksWithReply', async (req, res) => {
   
   router.put('/update/:id', async (req, res) => {
     const { id } = req.params;
-    
-    const result = await Feedback.findByIdAndUpdate(id,req.body);
+
+    const data = {
+      name : req.body.name,
+      email : req.body.email,
+      contactNumber : req.body.phone,
+      question : req.body.question,
+      rating : req.body.rating,
+      Reply : req.body.answer
+    }
+
+    const result = await Feedback.findByIdAndUpdate(id,data);
 
     if(!result) {
       return res.status(404).send({message:"Feedback can not be found"});
@@ -52,6 +70,23 @@ router.get('/feedbacksWithReply', async (req, res) => {
     return res.status(200).json(result)
     
   });
+
+router.put('/addAnswer/:id', async (req, res) => {
+  const { id } = req.params;
+
+  const answer = {
+    Reply : req.body.answer
+  }
+
+  const result = await Feedback.findByIdAndUpdate(id,answer);
+
+  if(!result) {
+    return res.status(404).send({message:"Feedback can not be found"});
+  }
+
+  return res.status(200).json(result)
+
+});
   
   router.delete('/delete/:id', async (req, res) => {
     const { id } = req.params;
