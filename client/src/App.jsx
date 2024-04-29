@@ -6,6 +6,7 @@ import ReplyForm from "../pages/ReplyForm.jsx";
 import UpdateConfirmFeedback from "../pages/updateConfirmFeedback.jsx";
 import DeleteConfirmed from "../pages/DeleteConfirmed.jsx";
 import CreateFeedback from "../pages/CreateFeedback.jsx";
+import FeedbackReport from "../pages/FeedbackReport.jsx";
 
 function App() {
 
@@ -17,7 +18,7 @@ function App() {
       <Route path='/feedback/updateConfirm/:id' element={<UpdateConfirmFeedback/>}></Route>
       <Route path='/feedback/deleteConfirm/:id' element={<DeleteConfirmed/>}></Route>
       <Route path='/feedback/addFeedback' element={<CreateFeedback/>}></Route>
-
+      <Route path='/feedback/Report' element={<FeedbackReport/>}></Route>
     </Routes>
   )
 }
